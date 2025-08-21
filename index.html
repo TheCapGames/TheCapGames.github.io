@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Registro Firebase</title>
+  <title>Registro con Firebase</title>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
 </head>
@@ -17,20 +17,18 @@
   <input type="password" id="passwordLogin" placeholder="Contraseña">
   <button onclick="login()">Iniciar Sesión</button>
 
-  <h2>Estado</h2>
   <p id="estado">No has iniciado sesión</p>
-  <button onclick="logout()">Cerrar Sesión</button>
 
   <script>
     // Configuración de tu proyecto (copia lo de Firebase)
     const firebaseConfig = {
-  apiKey: "AIzaSyALGHzhsVTXOVTbENjw7xzX-gURYHiec2k",
-  authDomain: "registroimpresion.firebaseapp.com",
-  projectId: "registroimpresion",
-  storageBucket: "registroimpresion.firebasestorage.app",
-  messagingSenderId: "264564183958",
-  appId: "1:264564183958:web:3c563215ad41a5ae2f43b7"
-};
+      apiKey: "AIzaSyALGHzhsVTXOVTbENjw7xzX-gURYHiec2k",
+      authDomain: "registroimpresion.firebaseapp.com",
+      projectId: "registroimpresion",
+      storageBucket: "registroimpresion.firebasestorage.app",
+      messagingSenderId: "264564183958",
+      appId: "1:264564183958:web:3c563215ad41a5ae2f43b7"
+    };
 
     // Inicializar Firebase
     const app = firebase.initializeApp(firebaseConfig);
@@ -42,7 +40,8 @@
       const password = document.getElementById("password").value;
       auth.createUserWithEmailAndPassword(email, password)
         .then(userCredential => {
-          document.getElementById("estado").innerText = "Registrado como: " + userCredential.user.email;
+          alert("Registrado como: " + userCredential.user.email);
+          window.location.href = "bienvenido.html"; // redirigir después de registrar
         })
         .catch(error => {
           alert(error.message);
@@ -55,19 +54,14 @@
       const password = document.getElementById("passwordLogin").value;
       auth.signInWithEmailAndPassword(email, password)
         .then(userCredential => {
-          document.getElementById("estado").innerText = "Conectado como: " + userCredential.user.email;
+          alert("Bienvenido: " + userCredential.user.email);
+          window.location.href = "bienvenido.html"; // redirigir después de login
         })
         .catch(error => {
           alert(error.message);
         });
     }
-
-    // Logout
-    function logout() {
-      auth.signOut().then(() => {
-        document.getElementById("estado").innerText = "No has iniciado sesión";
-      });
-    }
   </script>
 </body>
 </html>
+
